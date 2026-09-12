@@ -1,0 +1,71 @@
+# Favorite CLI Utilities
+
+### Midight Commander
+
+A visual, TUI, dual-panel file manager.
+Uses `ncurses` or `S-lang`.
+
+**Installation:**
+```bash
+# install like so:
+sudo dnf install mc
+sudo apt install mc
+```
+
+
+#### Delta
+A colorful, clean diff viewer. 
+I have `core.pager = delta` in my `~/.gitconfig`.
+
+** Fedora / Red Hat installation:**
+
+```bash
+# Fedora / Red Hat
+sudo dnf install git-delta
+
+# Ubuntu
+# Thist installation process is a bit clunky. There must be a simpler way.
+# Fetch the latest version number
+DELTA_VERSION=$(curl -sL "https://api.github.com/repos/dandavison/delta/releases/latest" | awk -F\" '/"tag_name":/{print $(NF-1)}')
+
+# Download the .deb package to your Downloads directory
+mkdir -p ~/Downloads && cd ~/Downloads
+curl -OL "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb"
+
+# Install the package
+sudo apt install ./git-delta_${DELTA_VERSION}_amd64.deb
+cd -
+```
+
+
+**Configuration:**
+
+**Command line configuration:**
+```bash
+git config --global core.pager "delta"
+git config --global interactive.diffFilter "delta --color-only"
+git config --global delta.navigate true
+git config --global merge.conflictStyle zdiff3
+```
+
+
+
+**Configuration through `.gitconfig`:**
+```yaml
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true    # Use 'n' and 'N' to jump between file diff sections
+    side-by-side = true # Optional: Enables side-by-side view instead of stacked
+
+[merge]
+    conflictStyle = zdiff3
+```
+```
+
+
+
